@@ -82,8 +82,8 @@ namespace AutoModPlugins
         public List<EncounterTypeGroup> PrioritizeEncounters { get; set; } = new() { EncounterTypeGroup.Egg, EncounterTypeGroup.Static,
                                                                                     EncounterTypeGroup.Trade, EncounterTypeGroup.Slot, EncounterTypeGroup.Mystery};
 
-        [Category(Legality), Description("Generates legal nonshiny Generation 8 raid Pokémon based on the game's RNG.")]
-        public bool UseXOROSHIRO { get; set; } = true;
+        [Category(Legality), Description("Disabling this will force ALM to not generate Pokemon which require a HOME tracker.")]
+        public bool AllowHOMETransferGeneration { get; set; } = true;
 
         [Category(Legality), Description("Produces an Easter Egg Pokémon if the provided set is illegal.")]
         public bool EnableEasterEggs { get; set; } = true;

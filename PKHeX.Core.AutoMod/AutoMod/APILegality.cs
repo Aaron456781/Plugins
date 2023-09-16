@@ -24,13 +24,13 @@ namespace PKHeX.Core.AutoMod
         public static bool UseMarkings { get; set; } = true;
         public static bool EnableDevMode { get; set; } = false;
         public static string LatestAllowedVersion { get; set; } = "0.0.0.0";
-        public static bool UseXOROSHIRO { get; set; } = true;
         public static bool PrioritizeGame { get; set; } = true;
         public static GameVersion PrioritizeGameVersion { get; set; }
         public static bool SetBattleVersion { get; set; }
         public static bool AllowTrainerOverride { get; set; }
         public static bool AllowBatchCommands { get; set; } = true;
         public static bool ForceLevel100for50 { get; set; } = true;
+        public static bool AllowHOMETransferGeneration { get; set; } = true;
         public static int Timeout { get; set; } = 15;
 
         /// <summary>
@@ -124,6 +124,11 @@ namespace PKHeX.Core.AutoMod
                 if (pk == null)
                     continue;
                 if (EntityConverter.IsIncompatibleGB(pk, template.Japanese, pk.Japanese))
+                    continue;
+                var isNative = enc.Generation == 8 && pk.IsNative;
+                if (isNative && pk is PK8 pk8 && LocationsHOME.IsLocationSWSH(pk8.Met_Location))
+                    isNative = false;
+                if (!isNative && !AllowHOMETransferGeneration)
                     continue;
 
                 // Apply final details
@@ -380,6 +385,13 @@ namespace PKHeX.Core.AutoMod
 
             // Don't process if the requested set is Alpha and the Encounter is not
             if (!IsRequestedAlphaValid(set, enc))
+                return false;
+
+            // Don't process if AllowHOMETransferGeneration is false but enc needs a tracker
+            var trackerrequired = enc is EncounterSlot8GO or WC8 { IsHOMEGift: true } 
+                                  or WB8 { IsHOMEGift: true } or WA8 { IsHOMEGift: true }
+                                  or WC9 { IsHOMEGift: true };
+            if (trackerrequired && !AllowHOMETransferGeneration)
                 return false;
 
             // Don't process if the gender does not match the set

@@ -203,13 +203,13 @@ namespace AutoModPlugins
             APILegality.UseCompetitiveMarkings = settings.UseCompetitiveMarkings;
             APILegality.UseMarkings = settings.UseMarkings;
             APILegality.EnableDevMode = settings.EnableDevMode;
-            APILegality.UseXOROSHIRO = settings.UseXOROSHIRO;
             APILegality.PrioritizeGame = settings.PrioritizeGame;
             APILegality.PrioritizeGameVersion = settings.PriorityGameVersion;
             APILegality.SetBattleVersion = settings.SetBattleVersion;
             APILegality.AllowTrainerOverride = settings.AllowTrainerOverride;
             APILegality.Timeout = settings.Timeout;
             APILegality.ForceLevel100for50 = settings.ForceLevel100for50;
+            APILegality.AllowHOMETransferGeneration = settings.AllowHOMETransferGeneration;
             Legalizer.EnableEasterEggs = settings.EnableEasterEggs;
             SmogonGenner.PromptForImport = settings.PromptForSmogonImport;
             ModLogic.IncludeForms = settings.IncludeForms;
